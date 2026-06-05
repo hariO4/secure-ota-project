@@ -19,6 +19,7 @@ Developer → GitHub → GitHub Actions → Sign → HiveMQ MQTT → ESP32 Devic
 
 ## Repository Structure
 
+```
 server/
   keys/         # RSA key pair (private key excluded via .gitignore)
   scripts/      # Python signing, verification, manifest, and MQTT scripts
@@ -28,7 +29,7 @@ server/
   workflows/    # CI/CD automation
 
 firmware/       # Firmware binaries for release
-
+```
 
 ## Scripts
 
