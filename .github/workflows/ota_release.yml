@@ -1,0 +1,36 @@
+name: OTA Release
+
+on:
+  push:
+    branches: [release]
+
+jobs:
+  build-and-sign:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: pip install cryptography paho-mqtt
+      
+      - name: Sign firmware
+        env:
+          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY_CONTENT }}
+        run: |
+          echo "$PRIVATE_KEY" > private_key.pem
+          python server/scripts/sign_firmware.py firmware/firmware.bin private_key.pem firmware/firmware.sig
+          python server/scripts/create_manifest.py firmware/firmware.bin firmware/firmware.sig "2.0.0"
+      
+      - name: Publish to MQTT
+        env:
+          MQTT_USER: ${{ secrets.MQTT_USERNAME }}
+          MQTT_PASS: ${{ secrets.MQTT_PASSWORD }}
+        run: |
+          python server/scripts/mqtt_publish.py firmware/firmware.bin firmware/firmware_manifest.json
