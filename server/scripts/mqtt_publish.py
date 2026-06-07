@@ -1,65 +1,54 @@
 import paho.mqtt.client as mqtt
-import json
 import ssl
 import time
+import base64
 
-# HiveMQ Cloud settings
 BROKER = "220b2344066a4e288a4babcc5d307788.s1.eu.hivemq.cloud"
 PORT = 8883
 USERNAME = "espuser"
 PASSWORD = "Espmodule@32"
-TOPIC = "ota/firmware/update"
 CA_CERT = "server/certs/hivemq_ca.pem"
 
-def on_connect(client, userdata, flags, rc):
-    if rc == 0:
-        print("Connected to HiveMQ broker")
-    else:
-        print(f"Connection failed with code {rc}")
+TOPIC_FIRMWARE = "ota/firmware/binary"
+TOPIC_SIGNATURE = "ota/firmware/signature"
 
-def on_publish(client, userdata, mid):
-    print(f"Message published (ID: {mid})")
+def publish_ota(firmware_file, signature_file):
+    with open(firmware_file, "rb") as f:
+        firmware_data = f.read()
+    with open(signature_file, "rb") as f:
+        signature_data = f.read()
 
-def publish_firmware(firmware_path, manifest_path):
+    print(f"Firmware size: {len(firmware_data)} bytes")
+    print(f"Signature size: {len(signature_data)} bytes")
+
     client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1)
-    client.on_connect = on_connect
-    client.on_publish = on_publish
-    
-    # TLS configuration
     client.tls_set(ca_certs=CA_CERT, tls_version=ssl.PROTOCOL_TLS)
     client.username_pw_set(USERNAME, PASSWORD)
-    
-    # Connect
-    print(f"Connecting to {BROKER}:{PORT}...")
-    client.connect(BROKER, PORT, keepalive=60)
+
+    print("Connecting to HiveMQ...")
+    client.connect(BROKER, PORT, 60)
     client.loop_start()
-    
-    # Read files
-    with open(firmware_path, "rb") as f:
-        firmware_data = f.read()
-    with open(manifest_path, "r") as f:
-        manifest = json.load(f)
-    
-    # Create payload
-    payload = {
-        "manifest": manifest,
-        "firmware": firmware_data.hex()
-    }
-    
-    # Publish
-    print(f"Publishing to topic: {TOPIC}")
-    result = client.publish(TOPIC, json.dumps(payload), qos=1)
-    
-    # Wait for publish to complete
     time.sleep(2)
+
+    # Base64 encode to prevent MQTT binary corruption
+    firmware_b64 = base64.b64encode(firmware_data).decode()
+    signature_b64 = base64.b64encode(signature_data).decode()
+
+    print(f"Publishing firmware (base64, {len(firmware_b64)} chars)...")
+    client.publish(TOPIC_FIRMWARE, firmware_b64, qos=1)
+    time.sleep(1)
+
+    print(f"Publishing signature (base64, {len(signature_b64)} chars)...")
+    client.publish(TOPIC_SIGNATURE, signature_b64, qos=1)
+    time.sleep(1)
+
     client.loop_stop()
     client.disconnect()
-    print("Disconnected")
+    print("Done! OTA update sent.")
 
 if __name__ == "__main__":
     import sys
     if len(sys.argv) != 3:
-        print("Usage: python mqtt_publish.py <firmware.bin> <manifest.json>")
+        print("Usage: python mqtt_publish.py <firmware.bin> <signature.sig>")
         sys.exit(1)
-    
-    publish_firmware(sys.argv[1], sys.argv[2])
+    publish_ota(sys.argv[1], sys.argv[2])
