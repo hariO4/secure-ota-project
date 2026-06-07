@@ -34,5 +34,4 @@ if __name__ == "__main__":
     if len(sys.argv) != 4:
         print("Usage: python verify_signature.py <firmware.bin> <signature.sig> <public_key.pem>")
         sys.exit(1)
-    
     verify_signature(sys.argv[1], sys.argv[2], sys.argv[3])
