@@ -338,10 +338,10 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base,
 void mqtt_app_start(void)
 {
     esp_mqtt_client_config_t mqtt_cfg = {
-        .broker.address.uri = "mqtts://220b2344066a4e288a4babcc5d307788.s1.eu.hivemq.cloud:8883",
+        .broker.address.uri = "YOUR_MQTT_ADDRESS.cloud:8883",
         .broker.verification.certificate = (const char *)hivemq_ca_pem_start,
-        .credentials.username            = "espuser",
-        .credentials.authentication.password = "Espmodule@32",
+        .credentials.username            = "YOUR_MQTT_USERNAME",
+        .credentials.authentication.password = "YOUR_MQTT_PASSWORD",
         .buffer.size     = 8192,
         .buffer.out_size = 1024,
     };

@@ -52,8 +52,8 @@ void wifi_init_sta(void)
 
     wifi_config_t wifi_config = {
         .sta = {
-            .ssid = "Kuttikkatt",
-            .password = "kuttikkatt123",
+            .ssid = "YourWiFiName",
+            .password = "YourPassword",
             .threshold.authmode = WIFI_AUTH_WPA2_PSK,
         },
     };
