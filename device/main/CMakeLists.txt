@@ -1,0 +1,20 @@
+idf_component_register(
+    SRCS
+        "main.c"
+        "wifi_manager.c"
+        "my_mqtt_client.c"
+        "crypto_verify.c"
+        "ota_handler.c"
+        "public_key_data.c"
+    INCLUDE_DIRS
+        "."
+    PRIV_REQUIRES
+        esp_wifi
+        esp_event
+        nvs_flash
+        mqtt
+        mbedtls
+        app_update
+    EMBED_TXTFILES
+        "hivemq_ca.pem"
+)

@@ -1,0 +1,9 @@
+build/
+.cache/
+sdkconfig.old
+*.bin
+*.elf
+*.map
+*.sig
+main/private_key.pem
+main/test_public.pem
