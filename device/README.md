@@ -15,24 +15,26 @@ verification, OTA flashing, and automatic rollback protection.
 - VS Code + ESP-IDF Extension
 
 ## Project File Structure
-device/
-├── main/
-│   ├── main.c                — App entry point, boot logic
-│   ├── wifi_manager.c        — WiFi connection handler
-│   ├── wifi_manager.h
-│   ├── my_mqtt_client.c      — MQTT subscriber + OTA trigger
-│   ├── my_mqtt_client.h
-│   ├── crypto_verify.c       — RSA-2048 signature verification
-│   ├── crypto_verify.h
-│   ├── ota_handler.c         — OTA flash logic
-│   ├── ota_handler.h
-│   ├── public_key_data.c     — Embedded RSA public key
-│   ├── public_key_data.h
-│   ├── hivemq_ca.pem         — HiveMQ TLS certificate
-│   └── CMakeLists.txt        — Component build config
-├── partitions.csv            — Custom 4MB partition table
-├── CMakeLists.txt            — Project build config
-└── README.md                 — This file
+## Project File Structure
+
+| File | Location | Description |
+|---|---|---|
+| `main.c` | `device/main/` | App entry point and boot logic |
+| `wifi_manager.c` | `device/main/` | WiFi connection handler |
+| `wifi_manager.h` | `device/main/` | WiFi header file |
+| `my_mqtt_client.c` | `device/main/` | MQTT subscriber and OTA trigger |
+| `my_mqtt_client.h` | `device/main/` | MQTT header file |
+| `crypto_verify.c` | `device/main/` | RSA-2048 signature verification |
+| `crypto_verify.h` | `device/main/` | Crypto header file |
+| `ota_handler.c` | `device/main/` | OTA flash logic |
+| `ota_handler.h` | `device/main/` | OTA header file |
+| `public_key_data.c` | `device/main/` | Embedded RSA public key |
+| `public_key_data.h` | `device/main/` | Public key header file |
+| `hivemq_ca.pem` | `device/main/` | HiveMQ TLS certificate |
+| `CMakeLists.txt` | `device/main/` | Component build config |
+| `partitions.csv` | `device/` | Custom 4MB partition table |
+| `CMakeLists.txt` | `device/` | Project build config |
+| `README.md` | `device/` | This file |
 
 ## How to Build and Flash
 ```bash
