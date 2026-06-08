@@ -1,5 +1,5 @@
 # Secure OTA Firmware Update System
-![OTA Release](https://github.com/hari04/secure-ota-project/actions/workflows/ota_release.yml/badge.svg?branch=release&event=push)
+![OTA Release](https://github.com/hari04/secure-ota-project/actions/workflows/ota-release.yml/badge.svg?branch=release&event=push)
 
 Production-grade secure over-the-air firmware update pipeline for ESP32 IoT devices. This repository handles server-side cryptographic signing, automated CI/CD release, and TLS-encrypted MQTT delivery.
 
