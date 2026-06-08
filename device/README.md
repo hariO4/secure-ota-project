@@ -17,17 +17,22 @@ verification, OTA flashing, and automatic rollback protection.
 ## Project File Structure
 device/
 ├── main/
-│   ├── main.c              — App entry point, boot logic
-│   ├── wifi_manager.c/h    — WiFi connection handler
-│   ├── my_mqtt_client.c/h  — MQTT subscriber + OTA trigger
-│   ├── crypto_verify.c/h   — RSA-2048 signature verification
-│   ├── ota_handler.c/h     — OTA flash logic
-│   ├── public_key_data.c/h — Embedded RSA public key
-│   ├── hivemq_ca.pem       — HiveMQ TLS certificate
-│   └── CMakeLists.txt      — Component build config
-├── partitions.csv          — Custom 4MB partition table
-├── CMakeLists.txt          — Project build config
-└── README.md               — This file
+│   ├── main.c                — App entry point, boot logic
+│   ├── wifi_manager.c        — WiFi connection handler
+│   ├── wifi_manager.h
+│   ├── my_mqtt_client.c      — MQTT subscriber + OTA trigger
+│   ├── my_mqtt_client.h
+│   ├── crypto_verify.c       — RSA-2048 signature verification
+│   ├── crypto_verify.h
+│   ├── ota_handler.c         — OTA flash logic
+│   ├── ota_handler.h
+│   ├── public_key_data.c     — Embedded RSA public key
+│   ├── public_key_data.h
+│   ├── hivemq_ca.pem         — HiveMQ TLS certificate
+│   └── CMakeLists.txt        — Component build config
+├── partitions.csv            — Custom 4MB partition table
+├── CMakeLists.txt            — Project build config
+└── README.md                 — This file
 
 ## How to Build and Flash
 ```bash
