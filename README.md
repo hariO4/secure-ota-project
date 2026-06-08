@@ -20,15 +20,28 @@ Developer → GitHub → GitHub Actions → Sign → HiveMQ MQTT → ESP32 Devic
 ## Repository Structure
 
 ```
-server/
-  keys/         # RSA key pair (private key excluded via .gitignore)
-  scripts/      # Python signing, verification, manifest, and MQTT scripts
-  certs/        # HiveMQ TLS CA certificate
-
-.github/
-  workflows/    # CI/CD automation
-
-firmware/       # Firmware binaries for release
+secure-ota-project/
+    server/
+        keys/           # RSA key pair (private key excluded via .gitignore)
+        scripts/        # Python signing, verification, manifest and MQTT scripts
+        certs/          # HiveMQ TLS CA certificate
+    device/
+        main/
+            main.c                  # App entry point and boot logic
+            wifi_manager.c/h        # WiFi connection handler
+            my_mqtt_client.c/h      # MQTT subscriber and OTA trigger
+            crypto_verify.c/h       # RSA-2048 signature verification
+            ota_handler.c/h         # OTA flash logic
+            public_key_data.c/h     # Embedded RSA public key
+            hivemq_ca.pem           # HiveMQ TLS certificate
+            CMakeLists.txt          # Component build config
+        partitions.csv              # Custom 4MB partition table
+        CMakeLists.txt              # Project build config
+        README.md                   # Device side documentation
+    .github/
+        workflows/      # CI/CD automation
+    firmware/           # Firmware binaries for release
+    README.md           # Main project documentation
 ```
 
 ## Scripts
