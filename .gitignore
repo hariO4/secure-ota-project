@@ -17,3 +17,8 @@ firmware/secure_ota_device.sig
 *.sig
 test*.*
 temp_*.pem
+
+# ESP-IDF build artifacts
+device/build/
+device/sdkconfig
+device/dependencies.lock
