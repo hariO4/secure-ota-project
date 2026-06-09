@@ -15,7 +15,6 @@ verification, OTA flashing, and automatic rollback protection.
 - VS Code + ESP-IDF Extension
 
 ## Project File Structure
-## Project File Structure
 
 | File | Location | Description |
 |---|---|---|
