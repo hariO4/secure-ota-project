@@ -1,4 +1,4 @@
-# Device Firmware — Member B (ESP32)
+# Device Firmware —(ESP32)
 
 ## Overview
 ESP32 device-side firmware for the Secure OTA Firmware Update System.
@@ -91,5 +91,6 @@ idf.py -p COM10 flash monitor
 | ota/firmware/signature   | Subscribe | RSA-2048 signature  |
 
 ## Member Responsibilities
-- **Member B (This repo):** ESP32 device firmware
-- **Member A (server/):** Python signing server, GitHub Actions CI/CD
+- **Harikrishnan P —** Server-side signing, CI/CD, MQTT broker
+- **Mohamed Ayaan —** ESP32 firmware, mbedTLS verification, OTA partitions
+
