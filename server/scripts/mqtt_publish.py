@@ -4,8 +4,8 @@ import time
 
 BROKER = "220b2344066a4e288a4babcc5d307788.s1.eu.hivemq.cloud"
 PORT = 8883
-USERNAME = "espuser"
-PASSWORD = "Espmodule@32"
+USERNAME = "your user name"
+PASSWORD = "your password"
 CA_CERT = "server/certs/hivemq_ca.pem"
 
 TOPIC_FIRMWARE = "ota/firmware/binary"
